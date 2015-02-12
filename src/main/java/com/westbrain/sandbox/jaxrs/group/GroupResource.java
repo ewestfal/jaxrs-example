@@ -93,6 +93,77 @@ public class GroupResource {
         }
     }
 
+    @GET
+    @Path("/{id}/members")
+    public Response getGroupMembers(@PathParam("id") Long id) {
+        if (repository.findOne(id) == null) {
+            return notFound();
+        }
+        Iterable<Member> members = repository.findMembers(id);
+        return Response.ok(members).build();
+    }
+
+    @GET
+    @Path("/{id}/members/{memberId}")
+    public Response getGroupMembers(@PathParam("id") Long id, @PathParam("memberId") Long memberId) {
+        Member member = repository.findMember(id, memberId);
+        if (member == null) {
+            return notFound();
+        }
+        return Response.ok(member).build();
+    }
+
+    @POST
+    @Path("/{id}/members")
+    public Response addMember(@PathParam("id") Long id, Member member) {
+        if (member == null) {
+            return badRequest();
+        }
+        Member savedMember = repository.saveMember(id, member);
+        return Response.created(uriInfo.getAbsolutePathBuilder().path("{id}").build(member.getId())).entity(savedMember).build();
+    }
+
+    @PUT
+    @Path("/{id}/members/{memberId}")
+    public Response updateMember(@PathParam("id") Long id, @PathParam("memberId") Long memberId, Member member) {
+        if (repository.findOne(id) == null) {
+            return notFound();
+        }
+        if (repository.findMember(id, memberId) == null) {
+            return notFound();
+        }
+        if (member == null || !Objects.equal(member.getId(), memberId)) {
+            return badRequest();
+        }
+        if (member.getId() == null) {
+            // make sure we have the proper id set before we update
+            member.setId(memberId);
+        }
+        repository.saveMember(id, member);
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/{id}/members/{memberId}")
+    public Response partialUpdateMember(@PathParam("id") Long id, @PathParam("memberId") Long memberId, Member member) {
+        // TODO: implement ability to perform a partial update via POST
+        return notFound();
+    }
+
+    @DELETE
+    @Path("/{id}/members/{memberId}")
+    public Response deleteMember(@PathParam("id") Long id, @PathParam("memberId") Long memberId) {
+        Member removedMember = null;
+        if (id != null && memberId != null) {
+            removedMember = repository.deleteMember(id, memberId);
+        }
+        if (removedMember == null) {
+            return notFound();
+        } else {
+            return Response.noContent().build();
+        }
+    }
+
     private Response notFound() {
         return Response.status(Response.Status.NOT_FOUND).build();
     }

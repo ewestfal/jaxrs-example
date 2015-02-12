@@ -16,7 +16,7 @@ public class CxfConfig {
 
     @Bean
     public ServletRegistrationBean cxfServlet() {
-        return new ServletRegistrationBean(new CXFServlet(), "/api/*");
+        return new ServletRegistrationBean(new CXFServlet(), "/api/v1/*");
     }
 
     @Bean
