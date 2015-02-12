@@ -10,6 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * Configuration class which configures all of the beans and services required for Apache CXF.
+ *
+ * <p>Creates the CXFServlet, the CXF Bus, and creates a Jackson provider for JSON serialization. Also imports
+ * the {@link org.apache.cxf.jaxrs.spring.SpringComponentScanServer} which allows for scanning the application context
+ * for resources (@Path) and providers (@Provider).</p>
+ *
+ * @author Eric Westfall (ewestfal@gmail.com)
+ */
 @Configuration
 @Import(SpringComponentScanServer.class)
 public class CxfConfig {

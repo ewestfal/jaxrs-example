@@ -17,7 +17,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 
-
+/**
+ * A resource implementation which provides a REST-ful, JSON-based API to the groups resource and it's members
+ * sub resource.
+ *
+ * <p>Leverages standard JAX-RS annotations for defining the API.</p>
+ *
+ * @author Eric Westfall (ewestfal@gmail.com)
+ */
 @Service
 @Path("/groups")
 @Produces(MediaType.APPLICATION_JSON)

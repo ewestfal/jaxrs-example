@@ -1,5 +1,12 @@
 package com.westbrain.sandbox.jaxrs.group;
 
+/**
+ * A simple model representing a single member of a group.
+ *
+ * @see com.westbrain.sandbox.jaxrs.group.Group
+ *
+ * @author Eric Westfall (ewestfal@gmail.com)
+ */
 public class Member {
 
     private Long id;
