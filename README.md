@@ -14,7 +14,10 @@ To run from an IDE, load the project into your IDE and set up a run configuratio
 
 # Using the API
 
-We will use the command line tool ```curl``` to exercise the API.
+We will use the command line tool ```curl``` to exercise the API. If you also want to have pretty printing, install the ```jq``` command line tool as well.
+
+* http://curl.haxx.se/
+* http://stedolan.github.io/jq/
 
 # Get group 1
 
